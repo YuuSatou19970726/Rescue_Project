@@ -98,7 +98,7 @@ namespace Watermelon
             globalSave.Flush();
 
             BaseSaveWrapper saveWrapper = BaseSaveWrapper.ActiveWrapper;
-            if(saveWrapper.UseThreads())
+            if (saveWrapper.UseThreads())
             {
                 Thread saveThread = new Thread(() => BaseSaveWrapper.ActiveWrapper.Save(globalSave, SAVE_FILE_NAME));
                 saveThread.Start();
@@ -115,7 +115,8 @@ namespace Watermelon
 
         public static void ForceSave()
         {
-            globalSave.Flush();
+            if (globalSave != null)
+                globalSave.Flush();
 
             BaseSaveWrapper saveWrapper = BaseSaveWrapper.ActiveWrapper;
             if (saveWrapper.UseThreads())
@@ -135,7 +136,7 @@ namespace Watermelon
 
         public static void SaveCustom(GlobalSave globalSave)
         {
-            if(globalSave != null)
+            if (globalSave != null)
             {
                 globalSave.Flush();
 
