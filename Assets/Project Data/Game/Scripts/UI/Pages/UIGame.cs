@@ -8,31 +8,31 @@ namespace Watermelon
     {
         [SerializeField] Joystick joystick;
 
-        [Space]
-        [SerializeField] CurrenciesUIController currenciesUIController;
+        // [Space]
+        // [SerializeField] CurrenciesUIController currenciesUIController;
 
-        [Space]
-        [SerializeField] Button dropButton;
-        [SerializeField] Button storeButton;
+        // [Space]
+        // [SerializeField] Button dropButton;
+        // [SerializeField] Button storeButton;
 
-        [Space]
-        [SerializeField] Image globalFadeImage;
+        // [Space]
+        // [SerializeField] Image globalFadeImage;
 
-        [Header("World Ad Button")]
-        [SerializeField] TableZoneAdButtonBehaviour tableZoneAdButtonBehaviour;
+        // [Header("World Ad Button")]
+        // [SerializeField] TableZoneAdButtonBehaviour tableZoneAdButtonBehaviour;
 
         public Joystick Joystick => joystick;
 
-        public CurrenciesUIController CurrenciesUIController => currenciesUIController;
+        // public CurrenciesUIController CurrenciesUIController => currenciesUIController;
 
         public override void Initialise()
         {
             joystick.Initialise(canvas);
 
-            currenciesUIController.Initialise(CurrenciesController.Currencies);
+            // currenciesUIController.Initialise(CurrenciesController.Currencies);
 
-            dropButton.onClick.AddListener(() => DropButton());
-            storeButton.onClick.AddListener(() => OnStoreButtonClicked());
+            // dropButton.onClick.AddListener(() => DropButton());
+            // storeButton.onClick.AddListener(() => OnStoreButtonClicked());
         }
 
         public override void PlayHideAnimation()
@@ -44,8 +44,8 @@ namespace Watermelon
         {
             UIController.OnPageOpened(this);
 
-            storeButton.transform.localScale = Vector3.zero;
-            storeButton.transform.DOScale(Vector3.one, 0.3f).SetCustomEasing(Ease.GetCustomEasingFunction("Light Bounce"));
+            // storeButton.transform.localScale = Vector3.zero;
+            // storeButton.transform.DOScale(Vector3.one, 0.3f).SetCustomEasing(Ease.GetCustomEasingFunction("Light Bounce"));
         }
 
         #region Drop Button
@@ -63,26 +63,26 @@ namespace Watermelon
 
         public void SetDropButtonState(bool state)
         {
-            dropButton.gameObject.SetActive(state);
+            // dropButton.gameObject.SetActive(state);
         }
         #endregion
 
         #region Fade
         public void ShowFadePanel(Tween.TweenCallback onCompleted)
         {
-            globalFadeImage.color = new Color(0, 0, 0, 0);
-            globalFadeImage.gameObject.SetActive(true);
-            globalFadeImage.DOFade(1.0f, 0.4f).OnComplete(onCompleted);
+            // globalFadeImage.color = new Color(0, 0, 0, 0);
+            // globalFadeImage.gameObject.SetActive(true);
+            // globalFadeImage.DOFade(1.0f, 0.4f).OnComplete(onCompleted);
         }
 
         public void HideFadePanel(Tween.TweenCallback onCompleted)
         {
-            globalFadeImage.DOFade(0.0f, 0.4f).OnComplete(() =>
-            {
-                globalFadeImage.gameObject.SetActive(false);
+            // globalFadeImage.DOFade(0.0f, 0.4f).OnComplete(() =>
+            // {
+            //     globalFadeImage.gameObject.SetActive(false);
 
-                onCompleted?.Invoke();
-            });
+            //     onCompleted?.Invoke();
+            // });
         }
         #endregion
 
@@ -95,12 +95,12 @@ namespace Watermelon
 
         public void ActivateZoneAdButton(IPurchaseObject purchaseObject)
         {
-            tableZoneAdButtonBehaviour.Initialise(purchaseObject);
+            // tableZoneAdButtonBehaviour.Initialise(purchaseObject);
         }
 
         public void DisableZoneAdButton()
         {
-            tableZoneAdButtonBehaviour.Hide();
+            // tableZoneAdButtonBehaviour.Hide();
         }
     }
 }

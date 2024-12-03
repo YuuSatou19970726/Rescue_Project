@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Watermelon;
 
 namespace RescueProject
 {
@@ -11,6 +12,9 @@ namespace RescueProject
 
         private bool isClick = false;
         public bool IsClick => isClick;
+
+        [SerializeField] private Vector3 joystickFormatInput;
+        public Vector3 JoystickFormatInput => joystickFormatInput;
 
         void Awake()
         {
@@ -23,6 +27,7 @@ namespace RescueProject
         void Update()
         {
             this.GetEventClick();
+            this.GetJoystickFormatInput();
         }
 
         private void GetEventClick()
@@ -67,6 +72,11 @@ namespace RescueProject
             //         }
             //     }
             // }
+        }
+
+        private void GetJoystickFormatInput()
+        {
+            this.joystickFormatInput = Joystick.Instance.FormatInput;
         }
     }
 }

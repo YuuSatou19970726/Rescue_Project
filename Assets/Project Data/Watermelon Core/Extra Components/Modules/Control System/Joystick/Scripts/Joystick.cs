@@ -89,7 +89,7 @@ namespace Watermelon
 
             isActive = false;
 
-            if(useTutorial)
+            if (useTutorial)
             {
                 joystickAnimator.enabled = true;
                 isTutorialDisplayed = true;
@@ -121,6 +121,7 @@ namespace Watermelon
                 isTutorialDisplayed = true;
 
                 joystickAnimator.enabled = false;
+
                 pointerGameObject.SetActive(false);
             }
 

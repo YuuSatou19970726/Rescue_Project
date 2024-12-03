@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Watermelon;
 
 namespace RescueProject
 {
@@ -14,6 +15,8 @@ namespace RescueProject
 
         private bool isRun = false;
         [SerializeField] private float movementMultiplier = 0;
+
+        private float boot = 0.01f;
 
         protected override void LoadComponents()
         {
@@ -43,17 +46,16 @@ namespace RescueProject
         {
             if (!this.isMove)
             {
-                this.movementMultiplier -= Time.fixedDeltaTime;
+                this.movementMultiplier -= this.boot * Time.fixedDeltaTime;
                 if (this.movementMultiplier <= 0)
                 {
                     this.movementMultiplier = 0;
                     this.isRun = false;
 
+                    this.boot = 0.01f;
+
                     this.rigidbody.velocity = Vector3.zero;
                     this.rigidbody.angularVelocity = Vector3.zero;
-
-                    // Vector3 oppositeForce = -this.rigidbody.velocity * this.rigidbody.mass;
-                    // this.rigidbody.AddForce(oppositeForce, ForceMode.Force);
                 }
             }
         }
@@ -78,8 +80,33 @@ namespace RescueProject
             this.movementMultiplier += 0.1f;
             if (this.movementMultiplier >= 1) this.movementMultiplier = 1;
 
+            this.boot += 0.05f;
+            if (this.boot == 1) this.boot = 1;
+
             this.isRun = true;
             this.isMove = true;
+        }
+
+        public virtual void MoveWithJoystick(float x, float z)
+        {
+            if (x == 0 && z == 0)
+            {
+                this.isMove = false;
+            }
+            else
+            {
+                float speed = GameManager.Instance.PlayerSettings.speed * 10 * Time.fixedDeltaTime;
+                Vector3 moveDirection = transform.right * x + transform.forward * z;
+                this.rigidbody.AddForce(moveDirection * speed, ForceMode.VelocityChange);
+
+                this.isRun = true;
+                this.isMove = true;
+                this.movementMultiplier += 0.01f;
+                if (this.movementMultiplier >= 1.1) this.movementMultiplier = 1;
+
+                this.boot += 0.05f;
+                if (this.boot == 1) this.boot = 1;
+            }
         }
 
         public virtual void ResetMove()

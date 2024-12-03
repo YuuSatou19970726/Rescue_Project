@@ -26,6 +26,8 @@ namespace RescueProject
                 this.playerMovement.MoveWithTap();
             else
                 this.playerMovement.ResetMove();
+
+            this.playerMovement.MoveWithJoystick(InputManager.Instance.JoystickFormatInput.x, InputManager.Instance.JoystickFormatInput.z);
         }
     }
 }
