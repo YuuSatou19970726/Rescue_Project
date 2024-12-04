@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace RescueProject
 {
@@ -58,8 +59,8 @@ namespace RescueProject
 
         protected override void LoadComponents()
         {
-            this.LoadMap();
             this.LoadGameController();
+            this.LoadMap();
         }
 
         protected override void OnDisable()
@@ -79,7 +80,10 @@ namespace RescueProject
                 EnvironmentListMap.Instance.CreateLoopMaps(level);
 
             if (gameState == GameState.PLAYGAME_SCREEN)
+            {
                 EnvironmentListMap.Instance.CreateMaps(level);
+                gameController.InitialiseGame();
+            }
         }
 
         public void IncreaseStamina()
@@ -124,6 +128,14 @@ namespace RescueProject
             string playerSettingsData = System.IO.File.ReadAllText(filePath);
 
             playerSettings = JsonUtility.FromJson<PlayerSettings>(playerSettingsData);
+        }
+
+        public void SetGameState(GameState gameState)
+        {
+            this.gameState = gameState;
+
+            if (this.gameState == GameState.MISSION_SCREEN)
+                Time.timeScale = 0;
         }
     }
 }

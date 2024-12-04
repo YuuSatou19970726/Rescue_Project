@@ -75,13 +75,13 @@ namespace RescueProject
         {
             if (isMove) return;
             float speed = GameManager.Instance.PlayerSettings.speed * currentDistance;
-            this.rigidbody.AddForce(transform.forward * speed);
+            this.rigidbody.AddForce(transform.forward * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
 
             this.movementMultiplier += 0.1f;
             if (this.movementMultiplier >= 1) this.movementMultiplier = 1;
 
             this.boot += 0.05f;
-            if (this.boot >= 0.5) this.boot = 0.5f;
+            if (this.boot >= 0.7) this.boot = 0.7f;
 
             this.isRun = true;
             this.isMove = true;
@@ -95,9 +95,9 @@ namespace RescueProject
             }
             else
             {
-                float speed = GameManager.Instance.PlayerSettings.speed * 10 * Time.fixedDeltaTime;
+                float speed = GameManager.Instance.PlayerSettings.speed * 10;
                 Vector3 moveDirection = transform.right * x + transform.forward * z;
-                this.rigidbody.AddForce(moveDirection * speed, ForceMode.VelocityChange);
+                this.rigidbody.AddForce(moveDirection * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
 
                 this.isRun = true;
                 this.isMove = true;

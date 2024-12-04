@@ -34,11 +34,11 @@ namespace RescueProject
         {
             if (GameManager.Instance.GameState != GameState.MENU_SCREEN) return;
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (this.isClick) return;
-                this.isClick = true;
-            }
+            // if (Input.GetMouseButtonDown(0))
+            // {
+            //     if (this.isClick) return;
+            //     this.isClick = true;
+            // }
 
             if (Input.GetMouseButtonUp(0))
             {
@@ -80,6 +80,12 @@ namespace RescueProject
         {
             if (GameManager.Instance.GameState != GameState.PLAYGAME_SCREEN) return;
             this.joystickFormatInput = Joystick.Instance.FormatInput;
+        }
+
+        public void EventMoveWithTab()
+        {
+            if (this.isClick) return;
+            this.isClick = true;
         }
     }
 }

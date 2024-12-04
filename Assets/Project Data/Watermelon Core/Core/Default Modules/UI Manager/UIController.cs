@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using RescueProject;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +32,11 @@ namespace Watermelon
 
         public static event OnPageOpenedCallback OnPageOpenedEvent;
         public static event OnPageClosedCallback OnPageClosedEvent;
+
+        public UIGame uIGame;
+        public UIMenu uIMenu;
+        public UILoading uILoading;
+        public UIMission uIMission;
 
         public void Initialise()
         {

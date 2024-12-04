@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using RescueProject;
 using UnityEngine;
 
 namespace Watermelon
@@ -45,6 +46,8 @@ namespace Watermelon
                 isMoving = false;
 
                 isOpened = true;
+
+                GameManager.Instance.SetGameState(GameState.MISSION_SCREEN);
             });
         }
 

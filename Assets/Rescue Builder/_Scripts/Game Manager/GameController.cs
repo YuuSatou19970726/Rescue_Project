@@ -10,19 +10,11 @@ namespace RescueProject
         [Header("Refferences")]
         [SerializeField] private UIController uiController;
 
-        private void Start()
-        {
-            this.InitialiseGame();
-        }
-
-        private void InitialiseGame()
+        public void InitialiseGame()
         {
             uiController.Initialise();
             uiController.InitialisePages();
-        }
-
-        public void ShowUIGame()
-        {
+            uiController.uIGame.gameObject.SetActive(true);
             UIController.ShowPage<UIGame>();
         }
     }
