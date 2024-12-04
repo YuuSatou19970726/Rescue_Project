@@ -7,8 +7,8 @@ namespace RescueProject
 {
     public class PlayerMovement : CustomMonobehaviour
     {
-        [SerializeField] new Rigidbody rigidbody;
-        [SerializeField] Animator animator;
+        new private Rigidbody rigidbody;
+        private Animator animator;
 
         private bool isMove = false;
         private float currentDistance = 200;
@@ -81,7 +81,7 @@ namespace RescueProject
             if (this.movementMultiplier >= 1) this.movementMultiplier = 1;
 
             this.boot += 0.05f;
-            if (this.boot == 1) this.boot = 1;
+            if (this.boot >= 0.5) this.boot = 0.5f;
 
             this.isRun = true;
             this.isMove = true;
@@ -105,7 +105,7 @@ namespace RescueProject
                 if (this.movementMultiplier >= 1.1) this.movementMultiplier = 1;
 
                 this.boot += 0.05f;
-                if (this.boot == 1) this.boot = 1;
+                if (this.boot >= 1) this.boot = 1;
             }
         }
 

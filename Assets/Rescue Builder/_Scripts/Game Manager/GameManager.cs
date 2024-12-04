@@ -11,6 +11,12 @@ namespace RescueProject
         private static GameManager instance;
         public static GameManager Instance => instance;
 
+        private GameController gameController;
+
+        [Header("Game Setting")]
+        private int level = 0;
+
+        [Header("Player Settings")]
         [SerializeField] private PlayerSettings playerSettings;
         public PlayerSettings PlayerSettings => playerSettings;
         private float priceStamina = 17;
@@ -22,6 +28,7 @@ namespace RescueProject
 
         protected override void Awake()
         {
+            base.Awake();
             if (instance == null)
                 instance = this;
             else
@@ -49,9 +56,27 @@ namespace RescueProject
 
         }
 
+        protected override void LoadComponents()
+        {
+            this.LoadMap();
+            this.LoadGameController();
+        }
+
         protected override void OnDisable()
         {
             // this.SaveToJson();
+        }
+
+        protected virtual void LoadGameController()
+        {
+            if (this.gameController != null) return;
+            this.gameController = GetComponent<GameController>();
+        }
+
+        protected virtual void LoadMap()
+        {
+            if (gameState == GameState.MENU_SCREEN)
+                EnvironmentListMap.Instance.CreateMaps(level);
         }
 
         public void IncreaseStamina()

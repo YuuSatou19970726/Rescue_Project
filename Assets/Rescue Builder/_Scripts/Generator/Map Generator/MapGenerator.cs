@@ -9,9 +9,11 @@ namespace RescueProject
     public class MapGenerator : MonoBehaviour
     {
         [SerializeField] private MapPhaseDataList mapPhaseDataList;
-        public MapPhaseDataList MapPhaseDataList => mapPhaseDataList;
+        public MapPhaseDataList GetMapPhaseDataList() => mapPhaseDataList;
         private Dictionary<string, MapPhaseData> mapPhaseDataDictionary = new Dictionary<string, MapPhaseData>();
         [SerializeField] private List<MapPhase> mapPhaseList;
+
+        private MapPhaseDataList mapPhaseDataListTemp;
 
         private int[][] generateMap = new int[10][];
 
@@ -19,24 +21,14 @@ namespace RescueProject
         {
             this.LoadMapInResources();
             this.LoadMapPhaseDataList();
-            this.GenerateMapDefault();
         }
 
         void Reset()
         {
             this.LoadMapInResources();
-            this.LoadMapPhaseDataList();
-            this.GenerateMapDefault();
-        }
-
-        void Start()
-        {
+#if UNITY_EDITOR
             this.GenerateMap();
-        }
-
-        void OnDisable()
-        {
-            StopAllCoroutines();
+#endif
         }
 
         private void LoadMapInResources()
@@ -58,20 +50,21 @@ namespace RescueProject
             this.mapPhaseDataList = Resources.Load<MapPhaseDataList>(ResourcesTags.MAPS_MAP_PHASE_DATA_LIST);
         }
 
+#if UNITY_EDITOR
+        void OnDisable()
+        {
+            StopAllCoroutines();
+        }
+
         private void GenerateMapDefault()
         {
-            if (this.mapPhaseDataList.mapPhaseDatas.Count > 0) return;
-
             MapPhaseData mapPhaseData;
-            string currentMapName = "Map_0";
 
-#if UNITY_EDITOR
+            string currentMapName = "Map_0";
+            mapPhaseDataListTemp = ScriptableObject.CreateInstance<MapPhaseDataList>();
             mapPhaseData = ScriptableObject.CreateInstance<MapPhaseData>();
-            AssetDatabase.CreateAsset(mapPhaseData, LinkCreateAssetTags.LINK_CREATE_MAP + currentMapName + ".asset");
-            AssetDatabase.SaveAssets();
-#endif
             mapPhaseDataDictionary[currentMapName] = mapPhaseData;
-            mapPhaseDataList.mapPhaseDatas.Add(mapPhaseData);
+            mapPhaseDataListTemp.mapPhaseDatas.Add(mapPhaseData);
 
             mapPhaseData = mapPhaseDataDictionary[currentMapName];
             mapPhaseData.mapName = currentMapName;
@@ -80,11 +73,13 @@ namespace RescueProject
             {
                 mapPhaseData.mapPhases.Add(mapPhaseList[i]);
             }
+            AssetDatabase.CreateAsset(mapPhaseData, LinkCreateAssetTags.LINK_CREATE_MAP + currentMapName + ".asset");
+            AssetDatabase.SaveAssetIfDirty(mapPhaseData);
         }
 
         private void GenerateMap()
         {
-            if (this.mapPhaseDataList.mapPhaseDatas.Count > 10) return;
+            this.GenerateMapDefault();
 
             int index = 0;
             for (int i = 0; i <= 1; i++)
@@ -113,6 +108,10 @@ namespace RescueProject
                 yield return GenerateSingleMapData(i);
                 yield return null;
             }
+
+            AssetDatabase.CreateAsset(mapPhaseDataListTemp, LinkCreateAssetTags.LINK_CREATE_MAP_LIST + "MapPhaseDataList.asset");
+            AssetDatabase.SaveAssetIfDirty(mapPhaseDataListTemp);
+            Debug.Log("Generate Map Done");
         }
 
         private IEnumerator GenerateSingleMapData(int level)
@@ -121,25 +120,22 @@ namespace RescueProject
             string currentMapName = "Map_" + (level + 1).ToString();
             if (!mapPhaseDataDictionary.ContainsKey(currentMapName))
             {
-#if UNITY_EDITOR
                 mapPhaseData = ScriptableObject.CreateInstance<MapPhaseData>();
-                AssetDatabase.CreateAsset(mapPhaseData, LinkCreateAssetTags.LINK_CREATE_MAP + currentMapName + ".asset");
-                AssetDatabase.SaveAssets();
-#endif
                 mapPhaseDataDictionary[currentMapName] = mapPhaseData;
-                mapPhaseDataList.mapPhaseDatas.Add(mapPhaseData);
+                mapPhaseDataListTemp.mapPhaseDatas.Add(mapPhaseData);
+                mapPhaseData = mapPhaseDataDictionary[currentMapName];
+                mapPhaseData.mapName = currentMapName;
+
+                for (int i = 0; i < generateMap[level].Length; i++)
+                {
+                    int count = generateMap[level][i];
+                    mapPhaseData.mapPhases.Add(mapPhaseList[count]);
+                }
+                AssetDatabase.CreateAsset(mapPhaseData, LinkCreateAssetTags.LINK_CREATE_MAP + currentMapName + ".asset");
+                AssetDatabase.SaveAssetIfDirty(mapPhaseData);
             }
-
-            mapPhaseData = mapPhaseDataDictionary[currentMapName];
-            mapPhaseData.mapName = currentMapName;
-
-            for (int i = 0; i < generateMap[level].Length; i++)
-            {
-                int count = generateMap[level][i];
-                mapPhaseData.mapPhases.Add(mapPhaseList[count]);
-            }
-
             yield return null;
         }
+#endif
     }
 }

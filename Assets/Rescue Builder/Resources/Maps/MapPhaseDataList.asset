@@ -13,4 +13,14 @@ MonoBehaviour:
   m_Name: MapPhaseDataList
   m_EditorClassIdentifier: 
   mapPhaseDatas:
-  - {fileID: 11400000, guid: b32e6b9872e6b2f4e956926cf0fcf780, type: 2}
+  - {fileID: 11400000, guid: d897dcab798ae4c4aa091c52abb6686f, type: 2}
+  - {fileID: 11400000, guid: 45023360446459e4881cfb4bad99b37d, type: 2}
+  - {fileID: 11400000, guid: 4635b4d0a81b3244bb84d329e96cdb9a, type: 2}
+  - {fileID: 11400000, guid: e50d70db2c6669b4aa3133c5470c9141, type: 2}
+  - {fileID: 11400000, guid: 86c25e58bd5b35a4294ab657ac2354f0, type: 2}
+  - {fileID: 11400000, guid: 6eef57500a9773d45b5c60db556a6000, type: 2}
+  - {fileID: 11400000, guid: 07d8073453817364caa559b95f8ceaba, type: 2}
+  - {fileID: 11400000, guid: 1126e48fa2711f94386c7bf7dfe28636, type: 2}
+  - {fileID: 11400000, guid: 58e6e20d72078c94ca8a208d86472ae0, type: 2}
+  - {fileID: 11400000, guid: 235cf40ae21f6cf42a30a51a637a5dc6, type: 2}
+  - {fileID: 11400000, guid: 17fc832395930344c8b7aa04cd14fd47, type: 2}

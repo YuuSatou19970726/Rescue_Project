@@ -10,16 +10,19 @@ namespace RescueProject
         [Header("Refferences")]
         [SerializeField] private UIController uiController;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             this.InitialiseGame();
         }
 
-        public void InitialiseGame()
+        private void InitialiseGame()
         {
             uiController.Initialise();
             uiController.InitialisePages();
+        }
+
+        public void ShowUIGame()
+        {
             UIController.ShowPage<UIGame>();
         }
     }

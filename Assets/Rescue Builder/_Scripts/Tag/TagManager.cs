@@ -36,5 +36,6 @@ namespace RescueProject
     public class LinkCreateAssetTags
     {
         public static string LINK_CREATE_MAP = "Assets/Rescue Builder/Common/Prefabs/Maps/";
+        public static string LINK_CREATE_MAP_LIST = "Assets/Rescue Builder/Resources/Maps/";
     }
 }

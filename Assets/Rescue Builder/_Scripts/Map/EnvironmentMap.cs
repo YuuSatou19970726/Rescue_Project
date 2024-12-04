@@ -45,6 +45,6 @@ namespace RescueProject
 
         protected abstract void LoopMaps();
 
-        public abstract void CreateMaps();
+        public abstract void CreateMaps(int level);
     }
 }

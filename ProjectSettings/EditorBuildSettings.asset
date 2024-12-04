@@ -9,5 +9,11 @@ EditorBuildSettings:
     path: Assets/Rescue Builder/_Scenes/GameplayScene.unity
     guid: c850ee8c3b14cc8459e7e186857cf567
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
+      guid: 2bd6caeb432fc3347b2ee6e143f8d23d, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: f71675b7b4e266c439f912012e4c71f8,
+      type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000,
+      guid: ac36f7da54020254b9574392fd0727b6, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: cd1754428af970b419f73c14186b6030, type: 2}

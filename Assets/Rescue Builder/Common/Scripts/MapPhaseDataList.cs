@@ -8,6 +8,6 @@ namespace RescueProject
     [System.Serializable]
     public class MapPhaseDataList : ScriptableObject
     {
-        public List<MapPhaseData> mapPhaseDatas;
+        public List<MapPhaseData> mapPhaseDatas = new List<MapPhaseData>();
     }
 }

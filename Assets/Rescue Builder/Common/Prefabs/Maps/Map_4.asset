@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d6146a3ee742824e81dd57e1d309754, type: 3}
   m_Name: Map_4
   m_EditorClassIdentifier: 
-  mapName: 
-  mapPhases: []
+  mapName: Map_4
+  mapPhases:
+  - {fileID: 3294462306459436925, guid: 83898ed379d5a654dbb04ecf7dff86e3, type: 3}
+  - {fileID: 2905272449077866526, guid: 4de9c7bac74dd354d85968345b2ce377, type: 3}
+  - {fileID: 3294462306459436925, guid: 83898ed379d5a654dbb04ecf7dff86e3, type: 3}

@@ -13,7 +13,7 @@ namespace RescueProject
         private bool isClick = false;
         public bool IsClick => isClick;
 
-        [SerializeField] private Vector3 joystickFormatInput;
+        private Vector3 joystickFormatInput;
         public Vector3 JoystickFormatInput => joystickFormatInput;
 
         void Awake()

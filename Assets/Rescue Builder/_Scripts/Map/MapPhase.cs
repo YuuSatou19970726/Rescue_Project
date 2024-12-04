@@ -9,7 +9,7 @@ namespace RescueProject
     {
         [Header("Setting")]
         [SerializeField] private Vector3 size;
-        public float GetLenght => size.z;
+        public float GetLenght() => size.z;
 
         void OnDrawGizmos()
         {
