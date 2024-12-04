@@ -1737,6 +1737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2310486178258241599}
   - component: {fileID: 3294462306459436925}
+  - component: {fileID: 1555831244443045012}
   m_Layer: 0
   m_Name: Map_1
   m_TagString: Untagged
@@ -1778,6 +1779,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 500, y: 100, z: 400}
+--- !u!114 &1555831244443045012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7361716138469749033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ce9631d0a0d80345afbccdbb0b7e05d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7627831579013620647
 GameObject:
   m_ObjectHideFlags: 0

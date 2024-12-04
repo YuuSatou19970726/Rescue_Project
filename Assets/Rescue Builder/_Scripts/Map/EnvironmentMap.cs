@@ -9,26 +9,12 @@ namespace RescueProject
         [SerializeField] protected MapPhase mapStart;
         [SerializeField] protected MapPhase mapEnd;
 
-        protected Transform targetPlayer;
         protected float endOffset = 10f;
 
         protected override void LoadComponents()
         {
-            this.LoadPlayerTransform();
             this.LoadMapStart();
             this.LoadMapEnd();
-        }
-
-        protected override void Update()
-        {
-            if (GameManager.Instance.GameState == GameState.MENU_SCREEN)
-                this.LoopMaps();
-        }
-
-        protected virtual void LoadPlayerTransform()
-        {
-            if (this.targetPlayer != null) return;
-            this.targetPlayer = GameObject.FindGameObjectWithTag(Tags.PLAYER).transform;
         }
 
         protected virtual void LoadMapStart()
@@ -43,7 +29,9 @@ namespace RescueProject
             this.mapEnd = Resources.Load<MapPhase>(ResourcesTags.MAPS_MAP_END);
         }
 
-        protected abstract void LoopMaps();
+        public abstract void LoopMaps();
+
+        public abstract void CreateLoopMaps(int level);
 
         public abstract void CreateMaps(int level);
     }

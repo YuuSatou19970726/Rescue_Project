@@ -76,6 +76,9 @@ namespace RescueProject
         protected virtual void LoadMap()
         {
             if (gameState == GameState.MENU_SCREEN)
+                EnvironmentListMap.Instance.CreateLoopMaps(level);
+
+            if (gameState == GameState.PLAYGAME_SCREEN)
                 EnvironmentListMap.Instance.CreateMaps(level);
         }
 
