@@ -21,4 +21,20 @@ namespace RescueProject
 
         public static string HOLDING_ANIMATION = "Holding";
     }
+
+    public class ResourcesTags
+    {
+        public static string MAPS_MAP_START = "Maps/Map_Start";
+        public static string MAPS_MAP_END = "Maps/Map_End";
+        public static string MAPS_MAP_1 = "Maps/Map_1";
+        public static string MAPS_MAP_2 = "Maps/Map_2";
+        public static string MAPS_MAP_3 = "Maps/Map_3";
+
+        public static string MAPS_MAP_PHASE_DATA_LIST = "Maps/MapPhaseDataList";
+    }
+
+    public class LinkCreateAssetTags
+    {
+        public static string LINK_CREATE_MAP = "Assets/Rescue Builder/Common/Prefabs/Maps/";
+    }
 }

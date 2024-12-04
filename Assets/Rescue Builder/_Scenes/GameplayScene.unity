@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 792613316}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -865,6 +865,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1374309295}
+  - component: {fileID: 1374309296}
+  - component: {fileID: 1374309297}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -892,6 +894,38 @@ Transform:
   - {fileID: 676783305}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1374309296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374309294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119fd9a1c41ae5046bf714307ddfb217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapStart: {fileID: 7761240382295241420, guid: ccb535bd3e52aa844ba61cbcb9a43e2d,
+    type: 3}
+  mapEnd: {fileID: 2633726376937802164, guid: 4c7d9c7c005a3bc4594d0a7b8407e44a, type: 3}
+--- !u!114 &1374309297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374309294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d314d18ab5754804890115bb2e235eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapPhaseDataList: {fileID: 11400000, guid: cea5b4fe57f5f284fa9df40c2381d4dc, type: 2}
+  mapPhaseList:
+  - {fileID: 3294462306459436925, guid: 83898ed379d5a654dbb04ecf7dff86e3, type: 3}
+  - {fileID: 2905272449077866526, guid: 4de9c7bac74dd354d85968345b2ce377, type: 3}
+  - {fileID: 933485219691417510, guid: ecea1df179811d6449bc8d3d2984991c, type: 3}
 --- !u!1 &1470487578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1228,6 +1262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ef14b260e9ccb44940304384c73ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joystickFormatInput: {x: 0, y: 0, z: 0}
 --- !u!114 &2082642618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1245,6 +1280,7 @@ MonoBehaviour:
     speed: 0
     income: 0
     money: 0
+  gameState: 2
 --- !u!114 &2082642619
 MonoBehaviour:
   m_ObjectHideFlags: 0

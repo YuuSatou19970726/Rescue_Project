@@ -58,7 +58,7 @@ namespace Watermelon
         public static GUIStyle helpboxLabel;
 
         public static GUIStyle button_tab;
-                
+
         public static GUIStyle boxHeader;
 
         public static GUIStyle padding00;
@@ -66,7 +66,7 @@ namespace Watermelon
         public static GUIStyle padding10;
 
         public static GUIStyle panelBottom;
-        
+
         public static GUIStyle boxCompiling;
 
         public const string ICON_SPACE = "  ";
@@ -89,8 +89,8 @@ namespace Watermelon
 
         static EditorStylesExtended()
         {
-            EditorCoroutines.Execute(TryToInitialize()); 
-            
+            EditorCoroutines.Execute(TryToInitialize());
+
             EditorApplication.playModeStateChanged += PlayModeStateChanged;
         }
 
@@ -130,7 +130,7 @@ namespace Watermelon
 
         public static void InitializeStyles()
         {
-            if(!editorSkin)
+            if (!editorSkin)
             {
                 if (EditorGUIUtility.isProSkin)
                     editorSkin = EditorUtils.GetAsset<GUISkin>(GUISKIN_PRO_NAME);
@@ -189,7 +189,7 @@ namespace Watermelon
                 helpboxLabel.wordWrap = true;
 
                 button_tab = editorSkin.GetStyle("button_tab");
-                
+
                 boxHeader = editorSkin.GetStyle("boxHeader");
 
                 panelBottom = editorSkin.GetStyle("panelButton");
@@ -200,7 +200,7 @@ namespace Watermelon
                 padding00 = GetPaddingStyle(new GUIStyle(), new RectOffset(0, 0, 0, 0));
                 padding05 = GetPaddingStyle(new GUIStyle(), new RectOffset(0, 0, 5, 5));
                 padding10 = GetPaddingStyle(new GUIStyle(), new RectOffset(0, 0, 10, 10));
-                
+
                 boxCompiling = editorSkin.GetStyle("boxCompiling");
             }
             else
@@ -259,10 +259,10 @@ namespace Watermelon
         private static void LoadIcons()
         {
             projectIcons = new Dictionary<string, Texture2D>();
-            
-            if(editorSkin != null)
+
+            if (editorSkin != null)
             {
-                if(!string.IsNullOrEmpty(AssetDatabase.GetAssetPath(editorSkin)))
+                if (!string.IsNullOrEmpty(AssetDatabase.GetAssetPath(editorSkin)))
                 {
                     string folderPath = Path.GetDirectoryName(AssetDatabase.GetAssetPath(editorSkin)).Replace(@"\", "/") + ICONS_FOLDER_PATH;
 
@@ -289,7 +289,7 @@ namespace Watermelon
 
             return null;
         }
-        
+
         public static Texture2D GetTexture(string name, Color color)
         {
             if (projectIcons.ContainsKey(name))
@@ -297,12 +297,12 @@ namespace Watermelon
                 Texture2D tempTexture = new Texture2D(projectIcons[name].width, projectIcons[name].height);
                 tempTexture.SetPixels(projectIcons[name].GetPixels());
 
-                for(int x = 0; x < tempTexture.width; x++)
+                for (int x = 0; x < tempTexture.width; x++)
                 {
                     for (int y = 0; y < tempTexture.height; y++)
                     {
                         Color tempColor = tempTexture.GetPixel(x, y);
-                        if(tempColor.a > 0)
+                        if (tempColor.a > 0)
                         {
                             tempTexture.SetPixel(x, y, color.SetAlpha(tempColor.a));
                         }
@@ -314,7 +314,7 @@ namespace Watermelon
                 return tempTexture;
             }
 
-            Debug.LogWarning("Texture " + name + " can't be found!");
+            // Debug.LogWarning("Texture " + name + " can't be found!");
 
             return null;
         }
@@ -335,7 +335,7 @@ namespace Watermelon
         {
             private void OnPostprocessTexture(Texture2D texture)
             {
-                if(assetPath.Contains("Watermelon"))
+                if (assetPath.Contains("Watermelon"))
                 {
                     LoadIcons();
                 }

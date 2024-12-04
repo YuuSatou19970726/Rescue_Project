@@ -17,6 +17,9 @@ namespace RescueProject
         private float priceSpeed = 9;
         private float priceIncome = 12;
 
+        [SerializeField] private GameState gameState;
+        public GameState GameState => gameState;
+
         protected override void Awake()
         {
             if (instance == null)

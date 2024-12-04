@@ -32,6 +32,8 @@ namespace RescueProject
 
         private void GetEventClick()
         {
+            if (GameManager.Instance.GameState != GameState.MENU_SCREEN) return;
+
             if (Input.GetMouseButtonDown(0))
             {
                 if (this.isClick) return;
@@ -76,6 +78,7 @@ namespace RescueProject
 
         private void GetJoystickFormatInput()
         {
+            if (GameManager.Instance.GameState != GameState.PLAYGAME_SCREEN) return;
             this.joystickFormatInput = Joystick.Instance.FormatInput;
         }
     }
