@@ -14,8 +14,39 @@ namespace RescueProject
         {
             uiController.Initialise();
             uiController.InitialisePages();
-            uiController.uIGame.gameObject.SetActive(true);
             UIController.ShowPage<UIGame>();
+        }
+
+        public void ShowUIGame()
+        {
+            uiController.uIGame.gameObject.SetActive(true);
+            uiController.uILoading.gameObject.SetActive(false);
+            uiController.uIMenu.gameObject.SetActive(false);
+            uiController.uIMission.gameObject.SetActive(false);
+        }
+
+        public void ShowUILoading()
+        {
+            uiController.uILoading.gameObject.SetActive(true);
+            uiController.uIGame.gameObject.SetActive(false);
+            uiController.uIMenu.gameObject.SetActive(false);
+            uiController.uIMission.gameObject.SetActive(false);
+        }
+
+        public void ShowUIMenu()
+        {
+            uiController.uIMenu.gameObject.SetActive(true);
+            uiController.uIGame.gameObject.SetActive(false);
+            uiController.uILoading.gameObject.SetActive(false);
+            uiController.uIMission.gameObject.SetActive(false);
+        }
+
+        public void ShowUIMission()
+        {
+            uiController.uIMission.gameObject.SetActive(true);
+            uiController.uIGame.gameObject.SetActive(false);
+            uiController.uILoading.gameObject.SetActive(false);
+            uiController.uIMenu.gameObject.SetActive(false);
         }
     }
 }

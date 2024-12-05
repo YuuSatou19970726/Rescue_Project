@@ -31,7 +31,7 @@ namespace RescueProject
 
         protected override bool CanDespawn()
         {
-            if (GameManager.Instance.GameState == GameState.LOADING_SCREEN)
+            if (GameManager.Instance.GameState == GameState.LOADING_SCREEN && transform.gameObject.activeInHierarchy)
                 this.isCanDespawn = true;
 
             if (GameManager.Instance.GameState == GameState.MENU_SCREEN)

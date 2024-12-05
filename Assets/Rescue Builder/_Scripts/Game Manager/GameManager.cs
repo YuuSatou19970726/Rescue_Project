@@ -14,6 +14,11 @@ namespace RescueProject
 
         private GameController gameController;
 
+        private List<ILoadMap> interfaceLoadMapDatas = new List<ILoadMap>();
+        SpawnerCat spawnerCat;
+        SpawnerObstacle spawnerObstacle;
+        SpawnerPropsAndTimeline spawnerPropsAndTimeline;
+
         [Header("Game Setting")]
         private int level = 0;
 
@@ -26,6 +31,7 @@ namespace RescueProject
 
         [SerializeField] private GameState gameState;
         public GameState GameState => gameState;
+        private GameState moveToGameState = GameState.NONE;
 
         protected override void Awake()
         {
@@ -60,6 +66,11 @@ namespace RescueProject
         protected override void LoadComponents()
         {
             this.LoadGameController();
+            this.LoadMapDataInterface();
+        }
+
+        protected override void Start()
+        {
             this.LoadMap();
         }
 
@@ -72,18 +83,24 @@ namespace RescueProject
         {
             if (this.gameController != null) return;
             this.gameController = GetComponent<GameController>();
+            this.gameController.InitialiseGame();
+        }
+
+        protected virtual void LoadMapDataInterface()
+        {
+            this.spawnerCat = FindAnyObjectByType<SpawnerCat>();
+            this.spawnerObstacle = FindAnyObjectByType<SpawnerObstacle>();
+            this.spawnerPropsAndTimeline = FindAnyObjectByType<SpawnerPropsAndTimeline>();
+
+            this.interfaceLoadMapDatas.Add(spawnerCat);
+            this.interfaceLoadMapDatas.Add(spawnerObstacle);
+            this.interfaceLoadMapDatas.Add(spawnerPropsAndTimeline);
         }
 
         protected virtual void LoadMap()
         {
-            if (gameState == GameState.MENU_SCREEN)
-                EnvironmentListMap.Instance.CreateLoopMaps(level);
-
-            if (gameState == GameState.PLAYGAME_SCREEN)
-            {
-                EnvironmentListMap.Instance.CreateMaps(level);
-                gameController.InitialiseGame();
-            }
+            moveToGameState = GameState.PLAYGAME_SCREEN;
+            SetGameState(GameState.LOADING_SCREEN);
         }
 
         public void IncreaseStamina()
@@ -112,6 +129,13 @@ namespace RescueProject
             this.playerSettings.money += 4 + this.playerSettings.income;
         }
 
+        public void LevelUp()
+        {
+            this.level++;
+            SetGameState(GameState.LOADING_SCREEN);
+            this.moveToGameState = GameState.MENU_SCREEN;
+        }
+
         private void SaveToJson()
         {
             string playerSettingsData = JsonUtility.ToJson(this.playerSettings);
@@ -130,12 +154,52 @@ namespace RescueProject
             playerSettings = JsonUtility.FromJson<PlayerSettings>(playerSettingsData);
         }
 
-        public void SetGameState(GameState gameState)
+        public void SetGameState(GameState newGameState)
         {
-            this.gameState = gameState;
+            this.gameState = newGameState;
 
-            if (this.gameState == GameState.MISSION_SCREEN)
-                Time.timeScale = 0;
+            switch (gameState)
+            {
+                case GameState.MENU_SCREEN:
+                    gameController.ShowUIMenu();
+                    break;
+                case GameState.PLAYGAME_SCREEN:
+                    gameController.ShowUIGame();
+                    break;
+                case GameState.LOADING_SCREEN:
+                    gameController.ShowUILoading();
+                    if (EnvironmentListMap.Instance.IsReadyCreateMap())
+                        SetGameState(GameState.CREART_MAP);
+                    break;
+                case GameState.CREART_MAP:
+                    if (this.moveToGameState == GameState.MENU_SCREEN)
+                    {
+                        EnvironmentListMap.Instance.CreateLoopMaps(level);
+                    }
+
+                    if (this.moveToGameState == GameState.PLAYGAME_SCREEN)
+                    {
+                        EnvironmentListMap.Instance.CreateMaps(level);
+                        foreach (ILoadMap iLoadMap in this.interfaceLoadMapDatas)
+                            iLoadMap.ImportData(level);
+                    }
+
+                    SetGameState(moveToGameState);
+                    break;
+                case GameState.MISSION_COMPLETED_SCREEN:
+                    Time.timeScale = 0;
+                    gameController.ShowUIMission();
+                    break;
+                case GameState.MISSION_FAILED_SCREEN:
+                    Time.timeScale = 0;
+                    gameController.ShowUIMission();
+                    break;
+            }
+        }
+
+        public void SetMoveWithGameState(GameState newGameState)
+        {
+            this.moveToGameState = newGameState;
         }
     }
 }

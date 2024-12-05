@@ -47,7 +47,7 @@ namespace Watermelon
 
                 isOpened = true;
 
-                GameManager.Instance.SetGameState(GameState.MISSION_SCREEN);
+                GameManager.Instance.SetGameState(GameState.MISSION_COMPLETED_SCREEN);
             });
         }
 
