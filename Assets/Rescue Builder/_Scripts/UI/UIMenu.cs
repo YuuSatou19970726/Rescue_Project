@@ -15,7 +15,7 @@ namespace RescueProject
 
         public void SetValue(float speed, float money, float price)
         {
-            this.textMoney.text = $"{(float)Math.Round(money, 2)}";
+            this.textMoney.text = $"{(float)Math.Round(money, 2)}$";
             this.textSpeed.text = $"{speed * 10}";
             this.textSpeedUp.text = $"{speed}";
             this.textPriceSpeed.text = $"{(float)Math.Round(price, 2)}";

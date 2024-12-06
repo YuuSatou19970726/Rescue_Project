@@ -52,6 +52,8 @@ namespace RescueProject
             this.playerSettings = new PlayerSettings();
             this.LoadFromJson();
 
+            this.level = this.LoadPlayerPrefs(PlayerPrefsTags.level);
+
             if (this.playerSettings.stamina == 0)
             {
                 this.playerSettings = new PlayerSettings
@@ -92,7 +94,7 @@ namespace RescueProject
 
         protected override void OnDisable()
         {
-            // this.SaveToJson();
+            this.SaveToJson();
         }
 
         protected virtual void LoadGameController()
@@ -183,11 +185,16 @@ namespace RescueProject
                     gameController.SetValueUIMission("MISSION COMPLETED", countCat, bonusCat, this.playerSettings.income, total);
                     gameController.ShowUIMission();
 
-                    // SavePlayerPrefs(PlayerPrefsTags.level, this.level);
+                    this.countCat = 0;
+
+                    this.SavePlayerPrefs(PlayerPrefsTags.level, this.level);
+                    this.SaveToJson();
                     break;
                 case GameState.MISSION_FAILED_SCREEN:
+                    this.countCat = 0;
                     gameController.SetValueUIMission("MISSION FAILED", 0, 0, this.playerSettings.income, 0);
                     gameController.ShowUIMission();
+                    this.SaveToJson();
                     break;
             }
         }

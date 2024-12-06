@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -29,7 +30,7 @@ namespace RescueProject
 
         public void SetTextMoney(float money)
         {
-            this.textMoney.text = $"Money: {money}";
+            this.textMoney.text = $"Money: {(float)Math.Round(money, 2)}";
         }
 
         public void SetTextCountCat(int countCat)
