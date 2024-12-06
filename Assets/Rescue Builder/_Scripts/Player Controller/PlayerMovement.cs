@@ -87,26 +87,35 @@ namespace RescueProject
             this.isMove = true;
         }
 
-        public virtual void MoveWithJoystick(float x, float z)
+        public virtual void MoveWithClick()
         {
-            if (x == 0 && z == 0)
-            {
-                this.isMove = false;
-            }
+            if (GameManager.Instance.GameState != GameState.PLAYGAME_SCREEN) return;
+            float speed = GameManager.Instance.PlayerSettings.speed * 10;
+            Vector3 position;
+            float xScreenDifference = Input.mousePosition.x - transform.position.x;
+
+            xScreenDifference /= Screen.width;
+
+            if (xScreenDifference < 0.1f)
+                position = new Vector3(-speed / 2f, 0f, speed);
             else
-            {
-                float speed = GameManager.Instance.PlayerSettings.speed * 10;
-                Vector3 moveDirection = transform.right * x + transform.forward * z;
-                this.rigidbody.AddForce(moveDirection * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                position = new Vector3(speed / 2f, 0f, speed);
 
-                this.isRun = true;
-                this.isMove = true;
-                this.movementMultiplier += 0.01f;
-                if (this.movementMultiplier >= 1.1) this.movementMultiplier = 1;
+            this.MoveSpeedForward(position);
+        }
 
-                this.boot += 0.05f;
-                if (this.boot >= 1) this.boot = 1;
-            }
+        private void MoveSpeedForward(Vector3 position)
+        {
+
+            this.rigidbody.MovePosition(this.rigidbody.position + position * Time.deltaTime);
+
+            this.isRun = true;
+            this.isMove = true;
+            this.movementMultiplier += 0.01f;
+            if (this.movementMultiplier >= 1.1) this.movementMultiplier = 1;
+
+            this.boot += 0.05f;
+            if (this.boot >= 1) this.boot = 1;
         }
 
         public virtual void ResetMove()

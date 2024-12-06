@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 1939926348508148122}
   - component: {fileID: 2185791372890913949}
   - component: {fileID: 1357300419352864272}
+  - component: {fileID: -9064000432012230859}
   m_Layer: 0
   m_Name: Animal Cat 01
   m_TagString: Untagged
@@ -210,6 +211,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-9064000432012230859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573612541844413709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520e8567aca2c914fbfd4dea5421f99c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1772133917459463566
 GameObject:
   m_ObjectHideFlags: 0

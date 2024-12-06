@@ -29,9 +29,14 @@ namespace RescueProject
         private float priceSpeed = 9;
         private float priceIncome = 12;
 
+        [Header("Gameplay Setting")]
+        private int countCat = 0;
+
         [SerializeField] private GameState gameState;
         public GameState GameState => gameState;
         private GameState moveToGameState = GameState.NONE;
+
+        [SerializeField] private PlayerController playerController;
 
         protected override void Awake()
         {
@@ -74,6 +79,14 @@ namespace RescueProject
             this.LoadMap();
         }
 
+        protected override void FixedUpdate()
+        {
+            if (gameState == GameState.PLAYGAME_SCREEN)
+            {
+                gameController.UpdateDataPlayer(this.playerController.Stamina, this.playerSettings.money, this.countCat);
+            }
+        }
+
         protected override void OnDisable()
         {
             // this.SaveToJson();
@@ -83,7 +96,6 @@ namespace RescueProject
         {
             if (this.gameController != null) return;
             this.gameController = GetComponent<GameController>();
-            this.gameController.InitialiseGame();
         }
 
         protected virtual void LoadMapDataInterface()
@@ -101,32 +113,6 @@ namespace RescueProject
         {
             moveToGameState = GameState.PLAYGAME_SCREEN;
             SetGameState(GameState.LOADING_SCREEN);
-        }
-
-        public void IncreaseStamina()
-        {
-            this.playerSettings.stamina += 4;
-            this.playerSettings.money -= this.priceStamina;
-            this.priceStamina = (int)Math.Round(this.playerSettings.stamina * 0.3f);
-        }
-
-        public void IncreaseSpeed()
-        {
-            this.playerSettings.speed += 0.1f;
-            this.playerSettings.money -= this.priceSpeed;
-            this.priceSpeed = this.playerSettings.speed * 9;
-        }
-
-        public void IncreaseIncome()
-        {
-            this.playerSettings.income += 1;
-            this.playerSettings.money -= this.priceIncome;
-            this.priceIncome = this.playerSettings.income * 4;
-        }
-
-        public void IncreaseTapMoney()
-        {
-            this.playerSettings.money += 4 + this.playerSettings.income;
         }
 
         public void LevelUp()
@@ -179,6 +165,7 @@ namespace RescueProject
 
                     if (this.moveToGameState == GameState.PLAYGAME_SCREEN)
                     {
+                        this.playerController.LoadStamina(this.playerSettings.stamina);
                         EnvironmentListMap.Instance.CreateMaps(level);
                         foreach (ILoadMap iLoadMap in this.interfaceLoadMapDatas)
                             iLoadMap.ImportData(level);
@@ -201,5 +188,45 @@ namespace RescueProject
         {
             this.moveToGameState = newGameState;
         }
+
+        #region MENU GAME TASK
+        public void IncreaseStamina()
+        {
+            this.playerSettings.stamina += 4;
+            this.playerSettings.money -= this.priceStamina;
+            this.priceStamina = (int)Math.Round(this.playerSettings.stamina * 0.3f);
+        }
+
+        public void IncreaseSpeed()
+        {
+            this.playerSettings.speed += 0.1f;
+            this.playerSettings.money -= this.priceSpeed;
+            this.priceSpeed = this.playerSettings.speed * 9;
+        }
+
+        public void IncreaseIncome()
+        {
+            this.playerSettings.income += 1;
+            this.playerSettings.money -= this.priceIncome;
+            this.priceIncome = this.playerSettings.income * 4;
+        }
+
+        public void IncreaseTapMoney()
+        {
+            this.playerSettings.money += 4 + this.playerSettings.income;
+        }
+        #endregion
+
+        #region GAME PLAY TASK
+        public void IncreaseCat()
+        {
+            this.countCat++;
+        }
+
+        public void IncreaseMoney()
+        {
+            this.playerSettings.money += 5 + this.playerSettings.income;
+        }
+        #endregion
     }
 }

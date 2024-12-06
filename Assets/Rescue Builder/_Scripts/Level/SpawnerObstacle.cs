@@ -20,5 +20,12 @@ namespace RescueProject
                 newObstacle.gameObject.SetActive(true);
             }
         }
+
+        public void ResetData()
+        {
+            Transform prefabObject = this.holder;
+            foreach (Transform prefab in prefabObject)
+                this.Despawn(prefab);
+        }
     }
 }

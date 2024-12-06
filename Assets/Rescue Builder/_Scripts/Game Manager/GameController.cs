@@ -10,13 +10,6 @@ namespace RescueProject
         [Header("Refferences")]
         [SerializeField] private UIController uiController;
 
-        public void InitialiseGame()
-        {
-            uiController.Initialise();
-            uiController.InitialisePages();
-            UIController.ShowPage<UIGame>();
-        }
-
         public void ShowUIGame()
         {
             uiController.uIGame.gameObject.SetActive(true);
@@ -47,6 +40,13 @@ namespace RescueProject
             uiController.uIGame.gameObject.SetActive(false);
             uiController.uILoading.gameObject.SetActive(false);
             uiController.uIMenu.gameObject.SetActive(false);
+        }
+
+        public void UpdateDataPlayer(int stamina, float money, int countCat)
+        {
+            uiController.uIGame.SetTextStamina(stamina);
+            uiController.uIGame.SetTextMoney(money);
+            uiController.uIGame.SetTextCountCat(countCat);
         }
     }
 }

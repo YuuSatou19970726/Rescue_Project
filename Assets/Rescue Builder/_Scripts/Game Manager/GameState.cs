@@ -9,5 +9,6 @@ namespace RescueProject
         CREART_MAP = 4,
         MISSION_COMPLETED_SCREEN = 5,
         MISSION_FAILED_SCREEN = 6,
+        TAP_MOD_SCREEN = 7,
     }
 }

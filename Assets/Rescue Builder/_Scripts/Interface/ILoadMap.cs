@@ -7,5 +7,6 @@ namespace RescueProject
     public interface ILoadMap
     {
         void ImportData(int level);
+        void ResetData();
     }
 }
