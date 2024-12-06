@@ -31,7 +31,7 @@ namespace RescueProject
 
         protected override bool CanDespawn()
         {
-            if (GameManager.Instance.GameState == GameState.LOADING_SCREEN && transform.gameObject.activeInHierarchy)
+            if (GameManager.Instance.GameState == GameState.MISSION_FAILED_SCREEN || GameManager.Instance.GameState == GameState.MISSION_COMPLETED_SCREEN && transform.gameObject.activeInHierarchy)
                 this.isCanDespawn = true;
 
             if (GameManager.Instance.GameState == GameState.MENU_SCREEN)
@@ -41,14 +41,15 @@ namespace RescueProject
                     isCanDespawn = true;
                 }
             }
-
             return isCanDespawn;
         }
 
         protected override void DespawnTarget()
         {
             EnvironmentListMap.Instance.Despawn(this.mapPhase);
-            EnvironmentListMap.Instance.LoopMaps();
+            if (GameManager.Instance.GameState == GameState.MENU_SCREEN)
+                EnvironmentListMap.Instance.LoopMaps();
+
             isCanDespawn = false;
         }
     }

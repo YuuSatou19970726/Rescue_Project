@@ -15,12 +15,14 @@ namespace RescueProject
         private GameController gameController;
 
         private List<ILoadMap> interfaceLoadMapDatas = new List<ILoadMap>();
+        EnvironmentListMap environmentListMap;
         SpawnerCat spawnerCat;
         SpawnerObstacle spawnerObstacle;
         SpawnerPropsAndTimeline spawnerPropsAndTimeline;
 
         [Header("Game Setting")]
         private int level = 0;
+        public int Level => level;
 
         [Header("Player Settings")]
         [SerializeField] private PlayerSettings playerSettings;
@@ -35,6 +37,7 @@ namespace RescueProject
         [SerializeField] private GameState gameState;
         public GameState GameState => gameState;
         private GameState moveToGameState = GameState.NONE;
+        public GameState MoveToGameState => moveToGameState;
 
         [SerializeField] private PlayerController playerController;
 
@@ -81,7 +84,7 @@ namespace RescueProject
 
         protected override void FixedUpdate()
         {
-            if (gameState == GameState.PLAYGAME_SCREEN)
+            if (gameState == GameState.PLAYGAME_SCREEN || gameState == GameState.TAP_MOD_SCREEN)
             {
                 gameController.UpdateDataPlayer(this.playerController.Stamina, this.playerSettings.money, this.countCat);
             }
@@ -100,10 +103,12 @@ namespace RescueProject
 
         protected virtual void LoadMapDataInterface()
         {
+            this.environmentListMap = FindAnyObjectByType<EnvironmentListMap>();
             this.spawnerCat = FindAnyObjectByType<SpawnerCat>();
             this.spawnerObstacle = FindAnyObjectByType<SpawnerObstacle>();
             this.spawnerPropsAndTimeline = FindAnyObjectByType<SpawnerPropsAndTimeline>();
 
+            this.interfaceLoadMapDatas.Add(environmentListMap);
             this.interfaceLoadMapDatas.Add(spawnerCat);
             this.interfaceLoadMapDatas.Add(spawnerObstacle);
             this.interfaceLoadMapDatas.Add(spawnerPropsAndTimeline);
@@ -111,7 +116,7 @@ namespace RescueProject
 
         protected virtual void LoadMap()
         {
-            moveToGameState = GameState.PLAYGAME_SCREEN;
+            moveToGameState = GameState.MENU_SCREEN;
             SetGameState(GameState.LOADING_SCREEN);
         }
 
@@ -148,37 +153,38 @@ namespace RescueProject
             {
                 case GameState.MENU_SCREEN:
                     gameController.ShowUIMenu();
+                    this.gameController.SetValueUIMenu(this.playerSettings.speed, this.playerSettings.money, this.priceSpeed);
                     break;
                 case GameState.PLAYGAME_SCREEN:
                     gameController.ShowUIGame();
+                    gameController.SetActiveZombieZone();
                     break;
                 case GameState.LOADING_SCREEN:
                     gameController.ShowUILoading();
-                    if (EnvironmentListMap.Instance.IsReadyCreateMap())
-                        SetGameState(GameState.CREART_MAP);
+                    gameController.SetHideZombieZone();
+
+                    foreach (ILoadMap iLoadMap in this.interfaceLoadMapDatas)
+                        iLoadMap.ResetData();
+
+                    SetGameState(GameState.CREART_MAP);
                     break;
                 case GameState.CREART_MAP:
-                    if (this.moveToGameState == GameState.MENU_SCREEN)
-                    {
-                        EnvironmentListMap.Instance.CreateLoopMaps(level);
-                    }
-
-                    if (this.moveToGameState == GameState.PLAYGAME_SCREEN)
-                    {
-                        this.playerController.LoadStamina(this.playerSettings.stamina);
-                        EnvironmentListMap.Instance.CreateMaps(level);
-                        foreach (ILoadMap iLoadMap in this.interfaceLoadMapDatas)
-                            iLoadMap.ImportData(level);
-                    }
+                    this.playerController.transform.position = new Vector3(50, 0, 0);
+                    foreach (ILoadMap iLoadMap in this.interfaceLoadMapDatas)
+                        iLoadMap.ImportData(level);
 
                     SetGameState(moveToGameState);
                     break;
                 case GameState.MISSION_COMPLETED_SCREEN:
-                    Time.timeScale = 0;
+                    this.level++;
+                    int bonusCat = 10 * (level + 1);
+                    int total = countCat * bonusCat * this.playerSettings.income;
+                    this.playerSettings.money += total;
+                    gameController.SetValueUIMission("MISSION COMPLETED", countCat, bonusCat, this.playerSettings.income, total);
                     gameController.ShowUIMission();
                     break;
                 case GameState.MISSION_FAILED_SCREEN:
-                    Time.timeScale = 0;
+                    gameController.SetValueUIMission("MISSION FAILED", 0, 0, this.playerSettings.income, 0);
                     gameController.ShowUIMission();
                     break;
             }
@@ -199,9 +205,12 @@ namespace RescueProject
 
         public void IncreaseSpeed()
         {
+            if (this.playerSettings.money < this.priceSpeed) return;
             this.playerSettings.speed += 0.1f;
             this.playerSettings.money -= this.priceSpeed;
             this.priceSpeed = this.playerSettings.speed * 9;
+
+            this.gameController.SetValueUIMenu(this.playerSettings.speed, this.playerSettings.money, this.priceSpeed);
         }
 
         public void IncreaseIncome()

@@ -46,8 +46,6 @@ namespace Watermelon
                 isMoving = false;
 
                 isOpened = true;
-
-                GameManager.Instance.SetGameState(GameState.MISSION_COMPLETED_SCREEN);
             });
         }
 
@@ -87,6 +85,8 @@ namespace Watermelon
             else if (other.CompareTag(PhysicsHelper.TAG_PLAYER))
             {
                 isPlayerActive = true;
+
+                GameManager.Instance.SetGameState(GameState.MISSION_COMPLETED_SCREEN);
 
                 Open();
             }

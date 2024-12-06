@@ -51,6 +51,7 @@ namespace RescueProject
 
         public void ImportData(int level)
         {
+            if (GameManager.Instance.MoveToGameState != GameState.PLAYGAME_SCREEN) return;
             if (level == 0)
                 LoadAnimalCatSettingBegin();
             else
@@ -61,7 +62,9 @@ namespace RescueProject
         {
             Transform prefabObject = this.holder;
             foreach (Transform prefab in prefabObject)
+            {
                 this.Despawn(prefab);
+            }
         }
     }
 }

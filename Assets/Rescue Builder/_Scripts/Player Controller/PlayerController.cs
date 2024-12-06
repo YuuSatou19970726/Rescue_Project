@@ -12,8 +12,8 @@ namespace RescueProject
         private int stamina;
         public int Stamina => stamina;
 
-        private bool recoveryStamina = false;
-        private float deplayRecovery = 0.7f;
+        // private bool recoveryStamina = false;
+        // private float deplayRecovery = 0.7f;
 
         protected override void LoadComponents()
         {
@@ -22,15 +22,16 @@ namespace RescueProject
 
         protected override void Update()
         {
-            if (GameManager.Instance.GameState == GameState.TAP_MOD_SCREEN)
-            {
-                this.deplayRecovery -= Time.deltaTime;
-                if (this.deplayRecovery <= 0)
-                {
-                    this.deplayRecovery = 0.7f;
-                    this.stamina += 1;
-                }
-            }
+            // if (GameManager.Instance.GameState == GameState.TAP_MOD_SCREEN)
+            // {
+            //     if (!this.recoveryStamina) return;
+            //     this.deplayRecovery -= Time.deltaTime;
+            //     if (this.deplayRecovery <= 0)
+            //     {
+            //         this.deplayRecovery = 0.7f;
+            //         this.stamina += 1;
+            //     }
+            // }
         }
 
         protected override void FixedUpdate()
@@ -40,13 +41,13 @@ namespace RescueProject
                 if (InputManager.Instance.IsClick)
                 {
                     this.playerMovement.MoveWithTap();
-                    this.stamina -= 4;
-                    this.recoveryStamina = false;
+                    // this.stamina -= 4;
+                    // this.recoveryStamina = false;
                 }
                 else
                 {
                     this.playerMovement.ResetMove();
-                    this.recoveryStamina = true;
+                    // this.recoveryStamina = true;
                 }
             }
 
@@ -67,9 +68,9 @@ namespace RescueProject
             this.playerMovement = GetComponent<PlayerMovement>();
         }
 
-        public virtual void LoadStamina(int settingStamina)
-        {
-            this.stamina = settingStamina;
-        }
+        // public virtual void LoadStamina(int settingStamina)
+        // {
+        //     this.stamina = settingStamina;
+        // }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,16 @@ namespace RescueProject
         [SerializeField] Text textStamina;
         [SerializeField] Text textMoney;
         [SerializeField] Text textCat;
+        [SerializeField] TextMeshProUGUI tapToMove;
+
+        void Update()
+        {
+            if (GameManager.Instance.GameState == GameState.TAP_MOD_SCREEN && !tapToMove.gameObject.activeInHierarchy)
+                tapToMove.gameObject.SetActive(true);
+
+            if (GameManager.Instance.GameState != GameState.TAP_MOD_SCREEN && tapToMove.gameObject.activeInHierarchy)
+                tapToMove.gameObject.SetActive(false);
+        }
 
         public void SetTextStamina(int stamina)
         {

@@ -19,6 +19,7 @@ namespace RescueProject
 
         public void ImportData(int level)
         {
+            if (GameManager.Instance.MoveToGameState != GameState.PLAYGAME_SCREEN) return;
             float zPos = EnvironmentListMap.Instance.ZPositionMapPhaseOne;
             List<Vector3> positionList = new List<Vector3>();
 
@@ -36,7 +37,9 @@ namespace RescueProject
         {
             Transform prefabObject = this.holder;
             foreach (Transform prefab in prefabObject)
+            {
                 this.Despawn(prefab);
+            }
         }
     }
 }

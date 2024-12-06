@@ -21,14 +21,14 @@ namespace Watermelon
 
         private void Awake()
         {
-            bannerRectTransform = (RectTransform)bannerObject.transform;
+            //             bannerRectTransform = (RectTransform)bannerObject.transform;
 
-#if UNITY_EDITOR
-            UnityEditor.SceneVisibilityManager.instance.ToggleVisibility(bannerObject, true);
-            UnityEditor.SceneVisibilityManager.instance.TogglePicking(bannerObject, true);
-#endif
+            // #if UNITY_EDITOR
+            //             UnityEditor.SceneVisibilityManager.instance.ToggleVisibility(bannerObject, true);
+            //             UnityEditor.SceneVisibilityManager.instance.TogglePicking(bannerObject, true);
+            // #endif
 
-            DontDestroyOnLoad(gameObject);
+            //             DontDestroyOnLoad(gameObject);
         }
 
         public void Init(AdsData settings)

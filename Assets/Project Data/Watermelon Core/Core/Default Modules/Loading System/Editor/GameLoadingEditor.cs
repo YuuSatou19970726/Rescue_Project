@@ -25,11 +25,11 @@ namespace Watermelon
                         GameObject initialiserPrefab = EditorUtils.GetAsset<GameObject>("Initialiser");
                         if (initialiserPrefab != null)
                         {
-                            GameObject initialiserObject = Object.Instantiate(initialiserPrefab);
+                            // GameObject initialiserObject = Object.Instantiate(initialiserPrefab);
 
-                            initialiser = initialiserObject.GetComponent<Initialiser>();
-                            initialiser.Awake();
-                            initialiser.Initialise(false);
+                            // initialiser = initialiserObject.GetComponent<Initialiser>();
+                            // initialiser.Awake();
+                            // initialiser.Initialise(false);
                         }
                         else
                         {
