@@ -131,6 +131,7 @@ namespace RescueProject
 
         public void Despawn(MapPhase mapPhase)
         {
+            if (!mapPhase.gameObject.activeInHierarchy) return;
             this.poolMapPhase.Add(mapPhase);
             mapPhase.gameObject.SetActive(false);
         }

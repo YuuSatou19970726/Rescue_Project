@@ -79,6 +79,7 @@ namespace RescueProject
 
         public void Despawn(Transform obj)
         {
+            if (!obj.gameObject.activeInHierarchy) return;
             this.poolObjs.Add(obj);
             obj.gameObject.SetActive(false);
         }

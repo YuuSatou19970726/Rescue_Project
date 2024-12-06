@@ -169,7 +169,7 @@ namespace RescueProject
                     SetGameState(GameState.CREART_MAP);
                     break;
                 case GameState.CREART_MAP:
-                    this.playerController.transform.position = new Vector3(50, 0, 0);
+                    this.playerController.transform.position = new Vector3(50, 0.1f, 0);
                     foreach (ILoadMap iLoadMap in this.interfaceLoadMapDatas)
                         iLoadMap.ImportData(level);
 
@@ -182,6 +182,8 @@ namespace RescueProject
                     this.playerSettings.money += total;
                     gameController.SetValueUIMission("MISSION COMPLETED", countCat, bonusCat, this.playerSettings.income, total);
                     gameController.ShowUIMission();
+
+                    // SavePlayerPrefs(PlayerPrefsTags.level, this.level);
                     break;
                 case GameState.MISSION_FAILED_SCREEN:
                     gameController.SetValueUIMission("MISSION FAILED", 0, 0, this.playerSettings.income, 0);
@@ -237,5 +239,18 @@ namespace RescueProject
             this.playerSettings.money += 5 + this.playerSettings.income;
         }
         #endregion
+
+
+        public void SavePlayerPrefs(string key, int value)
+        {
+            PlayerPrefs.SetInt(key, value);
+            PlayerPrefs.Save();
+        }
+
+        public int LoadPlayerPrefs(string key)
+        {
+            int value = PlayerPrefs.GetInt(key);
+            return value;
+        }
     }
 }

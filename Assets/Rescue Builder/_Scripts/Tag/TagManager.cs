@@ -73,4 +73,9 @@ namespace RescueProject
         public static string SIMPLE_ZOMBIES_RIOT_COP_GREEN = "SimpleZombies_RiotCop_Green";
         public static string SIMPLE_ZOMBIES_SHERIF_GREY = "SimpleZombies_Sherif_Grey";
     }
+
+    public class PlayerPrefsTags
+    {
+        public static string level = "level";
+    }
 }

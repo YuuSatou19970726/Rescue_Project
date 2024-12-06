@@ -107,7 +107,7 @@ namespace Watermelon
 #if UNITY_EDITOR
             else
             {
-                if(systemLogs)
+                if (systemLogs)
                     Debug.LogError("[Tween]: Tween already exists!");
             }
 #endif
@@ -135,7 +135,8 @@ namespace Watermelon
             switch (tweenType)
             {
                 case TweenType.Update:
-                    if(updateTweensCount >= updateTweens.Length)
+                    if (updateTweens == null) return;
+                    if (updateTweensCount >= updateTweens.Length)
                     {
                         Array.Resize(ref updateTweens, updateTweens.Length + 50);
 
@@ -214,7 +215,7 @@ namespace Watermelon
 
         public static void Pause(TweenType tweenType)
         {
-            switch(tweenType)
+            switch (tweenType)
             {
                 case TweenType.Update:
                     for (int i = 0; i < updateTweensCount; i++)
@@ -431,7 +432,7 @@ namespace Watermelon
                 TweenCase tween = updateTweens[i];
                 if (tween != null)
                 {
-                    if(!tween.Validate())
+                    if (!tween.Validate())
                     {
                         tween.Kill();
                     }
@@ -444,7 +445,7 @@ namespace Watermelon
                                 if (Time.timeScale == 0)
                                     continue;
 
-                                if(tween.delay > 0 && tween.delay > tween.currentDelay)
+                                if (tween.delay > 0 && tween.delay > tween.currentDelay)
                                 {
                                     tween.currentDelay += deltaTime;
                                 }
@@ -750,7 +751,7 @@ namespace Watermelon
                 {
                     defaultOffset++;
                 }
-           }
+            }
 
             lateRequiresActiveReorganization = false;
             lateReorganizeFromID = -1;
@@ -758,7 +759,7 @@ namespace Watermelon
 
         public static void MarkForKilling(TweenCase tween)
         {
-            switch(tween.tweenType)
+            switch (tween.tweenType)
             {
                 case TweenType.Update:
                     updateKillingTweens.Add(tween);
@@ -917,7 +918,7 @@ namespace Watermelon
         public static void DestroyObject()
         {
             // Stop all coroutines
-            if(instance != null)
+            if (instance != null)
                 instance.StopAllCoroutines();
 
             // Reset all tweens
@@ -942,7 +943,7 @@ namespace Watermelon
 
         public delegate void TweenCallback();
     }
-    
+
     public enum TweenType
     {
         Update,
